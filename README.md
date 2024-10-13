@@ -34,7 +34,7 @@ Run Spark:
 
 /home/user/spark-wallet-euro/dist/cli.js --host 0.0.0.0 --tls-name bitcoinserver.nl --port 9737 --ln-path /media/ssd/.lightning/bitcoin --login &lt;username&gt;:&lt;some large number&gt; &gt;& out_spark.txt &
 
-I then open spark-wallet in the address bar of a browser on my smart phone like this:
+I open spark-wallet in the address bar of a browser on my smart phone like this:
 bitcoinserver.nl:9737
 
 and then create a link/app on the home screen of my phone
