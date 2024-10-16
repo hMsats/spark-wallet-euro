@@ -2,6 +2,8 @@
 
 <b>This fork of Spark-wallet shows prices in Euro plus Bolt12 offers working.
 
+WARNING: This fork of Spark-wallet returns your offer for any amount when paying a bolt12 offer. 
+
 Compatible with Core Lightning version v23.05 or higher. 
 
 The `allow-deprecated-apis=false` is optional in config.
