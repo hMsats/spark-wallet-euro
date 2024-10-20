@@ -43,7 +43,7 @@ const confirmPay = payreq => ({ unitf, amtData, conf: { expert } }) => {
   // If the original offer had a fiat-denominated amount, exclude the 'msat' field
   // from being displayed in the changes list. The bitcoin and fiat amounts are
   // displayed separately.
-  if (payreq.offer && !payreq.offer.amount_msat && payreq.offer.amount && payreq.amount_msat) {
+  if (payreq.offer && !payreq.offer.offer_amount_msat && payreq.offer.amount && payreq.amount_msat) {
     delete payreq.changes.msat
   }
 

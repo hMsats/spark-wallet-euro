@@ -15,9 +15,9 @@ const offerPay = offer => ({ unitf, amtData, offerPayQuantity, conf: { expert } 
 
   ,
     // Bitcoin denominated amount
-    offer.amount_msat
+    offer.offer_amount_msat
     ? p('.toggle-unit', [ offer.quantity_min ? 'Price per unit: ' : 'Amount: '
-      , fmtSatAmountWithAlt(offer.amount_msat, unitf) ])
+      , fmtSatAmountWithAlt(offer.offer_amount_msat, unitf) ])
 
     // Fiat denominated amount
     : offer.currency
@@ -36,14 +36,16 @@ const offerPay = offer => ({ unitf, amtData, offerPayQuantity, conf: { expert } 
     ) : ''
 
   , formGroup('Attach note:'
-    , input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(optional)' } })
-    , 'A note to send to the payee along with the payment.')
+    , input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(obsolete)' } })
+    //, input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(optional)' } })
+    , 'This is now used to send your offer for any amount')
+    //, 'A note to send to the payee along with the payment.')
 
   , div('.form-buttons', [
       !offer.currency ? div('.mb-3', 'Do you confirm making this payment?') : ''
     , div([
         button('.btn.btn-lg.btn-primary.mb-1', { attrs: { type: 'submit' } }
-        , offer.amount_msat ? `Pay ${unitf(mul(offer.amount_msat, offerPayQuantity))}`
+        , offer.offer_amount_msat ? `Pay ${unitf(mul(offer.offer_amount_msat, offerPayQuantity))}`
         : offer.currency ? 'Continue'
                          : 'Send Payment')
       , ' '
@@ -60,7 +62,7 @@ const offerRecv = offer => ({ unitf, conf: { expert} }) =>
   form('.offer-recv', { attrs: { do: 'offer-recv' }, dataset: offer }, [
     h2('Receive payment')
 
-  , p([ 'You were offered a payment of ', strong('.toggle-unit', unitf(offer.amount_msat)), '. Do you accept it?' ])
+  , p([ 'You were offered a payment of ', strong('.toggle-unit', unitf(offer.offer_amount_msat)), '. Do you accept it?' ])
 
   //, expert ? p([ 'Node ID: ', small('.text-muted.break-all', offer.node_id) ]) : ''
   //, expert ? p([ 'Offer ID: ', small('.text-muted.break-all', offer.offer_id) ]) : ''
@@ -71,7 +73,7 @@ const offerRecv = offer => ({ unitf, conf: { expert} }) =>
 
   , div('.form-buttons', [
       button('.btn.btn-lg.btn-primary', { attrs: { type: 'submit' } }
-      , `Receive ${unitf(offer.amount_msat)}`)
+      , `Receive ${unitf(offer.offer_amount_msat)}`)
     , ' '
     , a('.btn.btn-lg.btn-secondary', { attrs: { href: '#/' } }, 'Cancel')
     ])
@@ -91,7 +93,7 @@ export const localOffer = offer => qrinv(offer).then(qr => ({ unitf, conf: { exp
     div('.row', [
       div('.col-sm-6.text-center', [
         h2('Receive payment(s)')
-      , p(`You can receive multiple payments${offer.amount_msat != 'any'?` of ${unitf(offer.amount_msat)} each`:''} using the reusable BOLT12 offer:`)
+      , p(`You can receive multiple payments${offer.offer_amount_msat != 'any'?` of ${unitf(offer.offer_amount_msat)} each`:''} using the reusable BOLT12 offer:`)
       , small('.d-none.d-sm-block.text-muted.break-all.mt-3', offer.bolt12)
       ])
     , div('.col-sm-6.text-center', [
@@ -102,5 +104,5 @@ export const localOffer = offer => qrinv(offer).then(qr => ({ unitf, conf: { exp
   , expert ? yaml(omitKey('bolt12', offer)) : ''
   ]))
 
-const mul = (amount_msat, quantity=1) =>
-  quantity == 1 ? amount_msat : Big(amount_msat).mul(quantity).toFixed(0)
+const mul = (offer_amount_msat, quantity=1) =>
+  quantity == 1 ? offer_amount_msat : Big(offer_amount_msat).mul(quantity).toFixed(0)
