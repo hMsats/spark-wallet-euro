@@ -35,11 +35,10 @@ const offerPay = offer => ({ unitf, amtData, offerPayQuantity, conf: { expert } 
                                              , min: offer.quantity_min, max: offer.quantity_max, step: 1 } })
     ) : ''
 
-  , formGroup('Attach note:'
-    , input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(obsolete)' } })
+    //, formGroup('Attach note:'
     //, input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(optional)' } })
-    , 'This is now used to send your offer for any amount')
     //, 'A note to send to the payee along with the payment.')
+    , 'Your offer for any amount will also be sent!'
 
   , div('.form-buttons', [
       !offer.currency ? div('.mb-3', 'Do you confirm making this payment?') : ''
