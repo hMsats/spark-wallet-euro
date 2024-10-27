@@ -41,6 +41,7 @@ const itemRenderer = ({ feedActive, unitf, expert }) => ([ type, ts, msat, obj ]
       , visible = fid == feedActive
       , tsStr   = new Date(ts*1000).toLocaleString()
       , offerId = obj.local_offer_id || obj.offer_id
+      , offerPn = obj.invreq_payer_note
       , status  = type == 'in' ? 'complete' : obj.status // in payments are always completed, out payments may be pending/failed
       , tsLabel = status == 'complete' ? (type == 'in' ? 'Received:' : 'Sent:') : 'Time:'
 
@@ -67,6 +68,7 @@ const itemRenderer = ({ feedActive, unitf, expert }) => ([ type, ts, msat, obj ]
     , type == 'out' && obj.destination ? li([ strong('Destination:'), ' ', small('.break-all', obj.destination) ]) : ''
     //, li([ strong('Payment hash:'), ' ', small('.break-all', obj.payment_hash) ])
     , offerId ? li([ strong('Offer ID:'), ' ', small('.break-all', offerId) ]) : ''
+    , offerPn ? li([ strong('Payer offer:'), ' ', small('.break-all', offerPn) ]) : ''
     , expert ? li(yaml(obj)) : ''
     ])
   ])
