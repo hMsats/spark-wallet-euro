@@ -68,7 +68,7 @@ const itemRenderer = ({ feedActive, unitf, expert }) => ([ type, ts, msat, obj ]
     , type == 'out' && obj.destination ? li([ strong('Destination:'), ' ', small('.break-all', obj.destination) ]) : ''
     //, li([ strong('Payment hash:'), ' ', small('.break-all', obj.payment_hash) ])
     , offerId ? li([ strong('Offer ID:'), ' ', small('.break-all', offerId) ]) : ''
-    , offerPn ? li([ strong('Payer offer:'), ' ', small('.break-all', offerPn) ]) : ''
+    , offerPn ? li([ strong('Payer note/offer:'), ' ', small('.break-all', offerPn) ]) : ''
     , expert ? li(yaml(obj)) : ''
     ])
   ])
