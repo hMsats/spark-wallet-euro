@@ -90,9 +90,7 @@ export const commands = {
   // and return it with the invoice metadata.
 , async _pay(paystr, ...args) {
     this.emit('paying', paystr)
-    // doesn't work when xpay-handle-pay=true
-    //const pay_result = await this.pay(paystr, ...args)
-    const pay_result = await this.pay(paystr)
+    const pay_result = await this.pay(paystr, ...args)
 
     await attachInvoiceMeta(this, paystr)
     return pay_result
