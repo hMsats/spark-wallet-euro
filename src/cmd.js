@@ -91,8 +91,7 @@ export const commands = {
 , async _pay(paystr, ...args) {
     this.emit('paying', paystr)
     const pay_result = await this.pay(paystr, ...args)
-
-    await attachInvoiceMeta(this, paystr)
+    await attachInvoiceMeta(this, pay_result)
     return pay_result
   }
 
