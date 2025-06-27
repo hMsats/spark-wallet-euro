@@ -108,7 +108,8 @@ export const commands = {
 
     const offer = await this._decode(bolt12_offer)
 
-    return { paystr: bolt12_invoice, offer, changes, ...invoice }
+    //return { paystr: bolt12_invoice, offer, changes, ...invoice }
+    return { paystr: bolt12_invoice, offer, changes, invoice }
   }
 
   // Decode the payment string and verify that it is supported by Spark
