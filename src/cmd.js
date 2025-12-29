@@ -97,12 +97,18 @@ export const commands = {
 
   // Fetch an invoice for the given offer, decode it and return the original offer alongside it
   // Some parameters are unsupported (recurrence/timeout).
-, async _fetchinvoice(bolt12_offer, amount_msat, quantity, payer_note) {
+, async _fetchinvoice(bolt12_offer, amount_msat, quantity, payer_note, do_payer_offer) {
 
-    const {offer_id, active, single_use, bolt12: payer_offer, used, created } = await this.offer("any")
-    const { invoice: bolt12_invoice, changes } = await this.fetchinvoice(bolt12_offer, amount_msat, quantity, null, null, null, null, payer_offer)
-    //const { invoice: bolt12_invoice, changes } = await this.fetchinvoice(bolt12_offer, amount_msat, quantity, null, null, null, null, payer_note)
-
+    // from chatgpt
+    const { bolt12: payer_offer } = await this.offer("any")
+    let res
+    if (do_payer_offer === 1) {
+      res = await this.fetchinvoice(bolt12_offer, amount_msat, quantity, null, null, null, null, payer_offer)
+    } else {
+      res = await this.fetchinvoice(bolt12_offer, amount_msat, quantity, null, null, null, null, payer_note)
+    }
+    const { invoice: bolt12_invoice, changes } = res
+    
     const invoice = await this._decode(bolt12_invoice)
     assert(invoice.type == 'bolt12 invoice', `Unexpected invoice type ${invoice.type}`)
 

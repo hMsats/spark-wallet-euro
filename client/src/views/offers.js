@@ -35,10 +35,27 @@ const offerPay = offer => ({ unitf, amtData, offerPayQuantity, conf: { expert } 
                                              , min: offer.quantity_min, max: offer.quantity_max, step: 1 } })
     ) : ''
 
-    //, formGroup('Attach note:'
-    //, input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(optional)' } })
-    //, 'A note to send to the payee along with the payment.')
-    , 'Your offer for any amount will also be sent!'
+  // from chatgpt:
+  // A check box that sets do_payer_offer to 1 if checked and to 0 if unchecked
+  // do_payer_offer is set to 0 in client/src/intent.js
+  , formGroup('Attach offer:'
+    , div('.form-check', [
+        input('.form-check-input', {
+          attrs: {
+            type: 'checkbox',
+            name: 'do_payer_offer',
+            value: 1
+          }
+        })
+      , span('.form-check-label', ' Use payer offer')
+      ])
+    , small('.form-text.text-muted',
+        'If checked, an offer is send to the payee along with the payment.')
+    )
+
+    , formGroup('Attach note:'
+    , input('.form-control.form-control-lg', { attrs: { type: 'text', name: 'payer_note', placeholder: '(optional)' } })
+    , 'If attach offer is unchecked, a note to send to the payee along with the payment.')
 
   , div('.form-buttons', [
       !offer.currency ? div('.mb-3', 'Do you confirm making this payment?') : ''

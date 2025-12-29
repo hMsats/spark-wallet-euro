@@ -71,7 +71,7 @@ exports.makeReq = ({ viewPay$, confPay$, offerPay$, offerRecv$, newInv$, goLogs$
 , newInv$.map(inv => !inv.reusable_offer
                        ? [ 'invoice',          [ inv.amount_msat, inv.label, inv.description, INVOICE_TTL ], inv ]
                        : [ 'offer',            [ inv.amount_msat, inv.description, null, inv.label ], inv ])
-, offerPay$.map(pay   => [ '_fetchinvoice',    [ pay.paystr, pay.custom_msat, pay.quantity, pay.payer_note ] ])
+, offerPay$.map(pay   => [ '_fetchinvoice',    [ pay.paystr, pay.custom_msat, pay.quantity, pay.payer_note, pay.do_payer_offer ] ])
 , offerRecv$.map(recv => [ 'sendinvoice',      [ recv.paystr, recv.label ] ])
 
 , goLogs$.mapTo(         [ 'getlog' ] )

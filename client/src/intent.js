@@ -84,7 +84,9 @@ module.exports = ({ DOM, route, conf$, scan$, urihandler$, offerInv$ }) => {
   , togAddrType$ = click('[do=toggle-addr-type]')
 
   // Offers
-  , offerPay$ = submit('[do=offer-pay]')
+  //, offerPay$ = submit('[do=offer-pay]')
+  // from chatgpt
+  , offerPay$ = submit('[do=offer-pay]').map(p => ({ ...p, do_payer_offer: p.do_payer_offer ? Number(p.do_payer_offer) : 0 }))
   , offerRecv$ = submit('[do=offer-recv]').map(({ paystr }) => ({ paystr, label: nanoid() }))
   , offerPayQuantity$ = on('.offer-pay [name=quantity]', 'input').map(e => e.target.value)
 
